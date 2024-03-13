@@ -1,8 +1,6 @@
 package uz.ulugg.note.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
-import android.widget.PopupMenu
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.keyframes
@@ -11,24 +9,17 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -37,8 +28,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.List
-import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
@@ -196,7 +185,7 @@ fun MainScreen(
             )
         },
         floatingActionButton = {
-            AddPaymentFab(
+            AddNoteFab(
                 modifier = Modifier.padding(bottom = 40.dp),
                 isVisibleBecauseOfScrolling = fabVisibility,
                 onClick = navigateCreateNoteScreen
@@ -245,7 +234,7 @@ fun MainScreen(
 }
 
 @Composable
-private fun AddPaymentFab(
+private fun AddNoteFab(
     modifier: Modifier,
     isVisibleBecauseOfScrolling: Boolean,
     onClick: () -> Unit,
