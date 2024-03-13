@@ -25,6 +25,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.Check
@@ -47,8 +49,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -62,6 +66,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.ulugg.note.MainViewModel
 import uz.ulugg.note.R
 import uz.ulugg.note.domain.ListType
@@ -269,6 +275,7 @@ fun NoteItem(
     onClick: (Long) -> Unit,
     onToggle: (Long) -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Box(modifier = modifier.padding(4.dp)) {
         Canvas(modifier = Modifier.matchParentSize()) {
             val clipPath = Path().apply {
@@ -299,8 +306,13 @@ fun NoteItem(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .clip(RoundedCornerShape(cornerRadius))
                 .combinedClickable(
-                    onClick = { onClick(noteData.note.id) },
+                    onClick = {
+                        coroutineScope.launch {
+                            onClick(noteData.note.id)
+                        }
+                    },
                     onLongClick = { onToggle(noteData.note.id) }
                 )
                 .padding(16.dp)
